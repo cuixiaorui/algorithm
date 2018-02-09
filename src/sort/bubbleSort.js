@@ -1,6 +1,6 @@
 let utils = require('../utils/index.js');
 /**
- * 选择排序
+ * 冒泡排序
  */
 function bubbleSort(list){
     let len = list.length;
