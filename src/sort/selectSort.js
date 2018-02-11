@@ -1,6 +1,8 @@
 let utils = require('../utils/index.js');
 /**
  * 选择排序
+ * 标记出最小的值 然后交换位置（位置基于i的值 变动）
+ * 从左到右
  */
 function selectSort(list){
     let min;
