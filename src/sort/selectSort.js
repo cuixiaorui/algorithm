@@ -4,18 +4,18 @@ let utils = require('../utils/index.js');
  */
 function selectSort(list){
     let min;
-    let searchNum = 0;
-    let tempIndex = 0;
-    while(searchNum < list.length){
-        min = list[searchNum];
-        for(let i=searchNum+1; i<list.length; i++){
-            if(list[i] < min){
-                min = list[i]
-                tempIndex = i;
+    let tempIndex;
+    let len = list.length;
+    for(let i=0; i<len; i++){
+        min = list[i];
+        tempIndex = i;
+        for(let j=i+1; j<len; j++){
+            if(list[j] < min){
+                min = list[j];
+                tempIndex = j;
             }
         }
-        utils.exchange(list,tempIndex,searchNum);
-        searchNum++;
+        utils.exchange(list,tempIndex,i);
     }
 }
 
