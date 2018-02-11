@@ -4,3 +4,4 @@
 ## 排序
     1. 选择排序 selectSort
     2. 冒泡排序 bubbleSort
+    3. 插入排序 insertSort
