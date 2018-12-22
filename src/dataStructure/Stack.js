@@ -4,27 +4,54 @@
  */
 class Stack{
     constructor(){
-        this.datastore = [];
+        this.list = [];
+        this.count = 0;
+    }
+    
+    /**
+     * 进栈
+     */
+    push(data){
+        this.list[this.count] = data;
+        this.count++;
     }
 
-    push(element){
-        return this.datastore.push(element);
-    }
-
+    /**
+     * 出栈
+     */
     pop(){
-        return this.datastore.pop();
+        if(this.count === 0){
+            return undefined;
+        }
+        this.count--;
+        const popValue = this.list[this.count];
+        delete this.list[this.count];
+        return popValue;
     }
 
+    /**
+     * 获取栈顶的值
+     * 但是不删除它
+     */
     peek(){
-        return this.datastore[this.datastore.length-1];
+        var topIndex = this.count -1;
+        return this.list[topIndex];
     }
 
-    clear(){
-        this.datastore = [];
+    /**
+     * 获取当前栈的长度
+     */
+    getLength(){
+        return this.count;
     }
 
-    isEmpty(){
-        return this.datastore.length === 0;
+    /**
+     * 是否为空栈
+     */
+    empty(){
+        return this.count === 0;
     }
+
+  
 }
 module.exports = Stack;

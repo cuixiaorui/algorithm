@@ -1,5 +1,28 @@
 {
+  "scripts": {
+    "test": "mocha --require intelli-espower-loader"
+  },
   "devDependencies": {
-    "minimist": "^1.2.0"
-  }
+    "intelli-espower-loader": "^1.0.1",
+    "minimist": "^1.2.0",
+    "mocha": "^5.2.0",
+    "power-assert": "^1.6.1"
+  },
+  "name": "algorithm",
+  "description": "基于js实现各类算法",
+  "version": "1.0.0",
+  "main": "index.js",
+  "directories": {
+    "test": "test"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/cuixiaorui/algorithm.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/cuixiaorui/algorithm/issues"
+  },
+  "homepage": "https://github.com/cuixiaorui/algorithm#readme"
 }
