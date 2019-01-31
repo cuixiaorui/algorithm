@@ -40,15 +40,12 @@ var twoSum = function(nums, target) {
     const hash = {};
     const len = nums.length;
     for(let i=0; i<len; i++){
-        const val = nums[i]
-        hash[val] = i;
-    }
-    for(let i=0; i<len; i++){
         const f = target - nums[i]
-        //hash[f] !== i 处理的是 一个值不能使用两次
-        if(hash[f] && hash[f] !== i){
+        //可以利用1个循环就搞定，后添加f 也无妨
+        if(hash[f] || hash[f] === 0 ){
             return [i,hash[f]]
         }
+        hash[nums[i]] = i
     }
     return -1;
 };
