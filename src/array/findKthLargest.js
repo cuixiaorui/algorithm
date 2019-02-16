@@ -32,4 +32,40 @@ var findKthLargest = function(nums, k) {
     return rList[rList.length - 1]
     
 };
-console.log(findKthLargest([3,2,3,1,2,4,5,5,6],4));
+var findKthLargest1 = function(nums,k){
+    //使用快排算法处理  O(nlogn)
+    quickSork(nums)
+    return nums[k - 1];
+
+}
+var quickSork = function(list){
+    //递归公式： quickSork(s……e) = quickSork(s……q-1) + quickSork(q+1 …… e)
+    //终止条件： s >= e
+    const quickSork_c = (list,s,e)=>{
+        if(s >= e)return;
+        //获取分区点
+        let q = partition(list,s,e);
+        quickSork_c(list,s,q - 1);
+        quickSork_c(list,q+1,e)
+    }
+    quickSork_c(list,0,list.length-1);
+}
+
+    const partition = (list,s,e)=>{
+        //取最后一个值，作为中心点
+        let pivot = list[e]
+        //给当前的数组排序，大于中心点的放在左边,小于中心点的放到右边(大到小排列)
+        let j = s;
+        for(let i=s; i<=e; i++){
+            if(list[i] <= pivot)
+            {
+                let temp = list[i];
+                list[i] = list[j];
+                list[j] = temp;
+                j++;
+            }
+        }
+        
+        return j - 1;
+
+    }
