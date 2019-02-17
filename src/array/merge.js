@@ -18,6 +18,7 @@
  * @param {number[]} nums2
  * @param {number} n
  * @return {void} Do not return anything, modify nums1 in-place instead. * 
+ * 这个操作相当于归并算法的 partition 的过程
  *  */
 var merge = function(nums1, m, nums2, n) {
     //时间复杂度 O(m + n);
@@ -60,6 +61,8 @@ var merge = function(nums1, m, nums2, n) {
             k++;
         }
     }
+    //todo 官方推荐 尾插入法 
+    //利用 nums1 额外的内存空间， 把 nums1 和 nums2 比对大小 把大的插入到 nums1 的尾部
 };
 // merge([1,2,3,0,0,0],3,[2,5,6],3)
 merge([4,5,6,0,0,0],3,[1,2,3],3)
