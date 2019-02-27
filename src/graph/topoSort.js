@@ -66,8 +66,48 @@ function topoSortByKahn(){
     
 
 }
-topoSortByKahn();
-
+// topoSortByKahn();
+/**
+ * 利用深度搜索DFS
+ * 
+ */
 function topoSortByDFS(){
+    //1. 先反转 s -> t   改为  t -> s
+    //这是因为使用递归（递归需要进入到最深处，然后在回来）
+    let linkedList = graph.getLinkedList();
 
-}
+    let reversalList = {};
+    for(let key in linkedList){
+        reversalList[key] = [];
+    }
+    for(let key in linkedList){
+        let list = linkedList[key]
+        for(let i=0; i<list.length; i++){
+            console.log(list[i]);
+            const name = list[i]
+            if(name){
+                reversalList[name].push(key)
+            }
+        }
+    }
+   
+    //DFS 深度搜索打印
+    let visited = {};
+    for(let key in linkedList){
+        visited[key] = false;
+    }
+    const dfs = (node,list)=>{
+        visited[node] = true;
+        for (let i = 0; i < list.length; i++) {
+            if (!visited[list[i]]) {
+                dfs(node,reversalList[list[i]]);
+            }
+        }
+        //最后在打印自己
+        console.log(node)
+    } 
+    for(let key in reversalList){
+        const list = reversalList[key]
+        dfs(key,list)
+    }
+ }
