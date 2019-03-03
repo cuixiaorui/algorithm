@@ -1,12 +1,12 @@
+
 /**
  * Initialize your data structure here. Set the size of the queue to be k.
  * @param {number} k
  */
 var MyCircularQueue = function(k) {
     this._list = new Array(k)
-    //可以使用 -1 处理，待优化
-    this._head = 0;
-    this._tail = 0;
+    this._head = -1;
+    this._tail = -1;
 };
 
 /**
@@ -17,15 +17,17 @@ var MyCircularQueue = function(k) {
 MyCircularQueue.prototype.enQueue = function(value) {
     //入队是添加到尾部， tail ++；
     //如果队列已经满了，那么将不能再添加新的元素
-    if(this._tail === this._head && this._list[this._tail])return false;
-
-    this._list[this._tail] = value;
-    if(this._tail + 1 >= this._list.length){
-        this._tail = 0;
-    }else{
-        this._tail++;
+    if(this.isFull()){
+        return false;
     }
+    if(this.isEmpty()){
+        this._head = 0;
+    }
+    
+    this._tail = (this._tail + 1) % this._list.length;
+    this._list[this._tail] = value;
     return true;
+
 };
 
 /*
@@ -33,14 +35,14 @@ MyCircularQueue.prototype.enQueue = function(value) {
  * @return {boolean}
  */
 MyCircularQueue.prototype.deQueue = function() {
-    if(this._tail === this._head && !this._list[this._tail])return false;
-
-    
+    if(this.isEmpty()){
+        return false;
+    }
     this._list[this._head] = null;
-    if(this._head + 1 >= this._list.length){
-        this._head = 0;
+    if(this._head === this._tail){
+        this._head = this._tail = -1;
     }else{
-        this._head++;
+        this._head = (this._head + 1) % this._list.length;
     }
     return true;
 };
@@ -50,12 +52,10 @@ MyCircularQueue.prototype.deQueue = function() {
  * @return {number}
  */
 MyCircularQueue.prototype.Front = function() {
-    if(this._list[this._head] || this._list[this._head] === 0){
-        return this._list[this._head]
+    if(this.isEmpty()){
+        return -1;
     }
-    return -1;
-
-    
+    return this._list[this._head];
 };
 
 /**
@@ -63,13 +63,10 @@ MyCircularQueue.prototype.Front = function() {
  * @return {number}
  */
 MyCircularQueue.prototype.Rear = function() {
-    const currentTailValue = this._tail === 0? this._list.length -1: this._tail - 1;
-    if(this._list[currentTailValue] || this._list[currentTailValue] === 0){
-        return this._list[currentTailValue]
+    if(this.isEmpty()){
+        return -1;
     }
-    return -1;
-    
-    
+    return this._list[this._tail]
 };
 
 /**
@@ -77,19 +74,17 @@ MyCircularQueue.prototype.Rear = function() {
  * @return {boolean}
  */
 MyCircularQueue.prototype.isEmpty = function() {
-
-    if(this._head === this._tail && !this._list[this._head]){
+    if (this._head === -1 && this._tail === -1) {
         return true;
     }
     return false;
+    
 };
 
-/**
- * Checks whether the circular queue is full or not.
- * @return {boolean}
- */
+
 MyCircularQueue.prototype.isFull = function() {
-    return this._head === this._tail && this._list[this._head];
+    const nextIndex =(this._tail + 1) % this._list.length; 
+    return nextIndex === this._head;
 };
 
 /** 
@@ -119,6 +114,12 @@ circularQueue.enQueue(2);  // 返回 true
 circularQueue.enQueue(3);  // 返回 true
 
 circularQueue.enQueue(4);  // 返回 false，队列已满
+
+// circularQueue.deQueue();
+// circularQueue.deQueue();
+// circularQueue.deQueue();
+// circularQueue.deQueue();
+// circularQueue.deQueue();
 
 circularQueue.Rear();  // 返回 3
 
