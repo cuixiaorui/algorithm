@@ -18,6 +18,9 @@ class Queue{
     isEmpty(){
         return this.datastore.length === 0;
     }
+    size(){
+        return this.datastore.length;
+    }
 
     clear(){
         this.datastore = [];
