@@ -50,15 +50,36 @@
  * @return {number} 
  *  */
 const Queue = require('../dataStructure/Queue');
-var deadends = ["0201", "0101", "0102", "1212", "2002"]
-var target = "0202"
+// var deadends = ["0201", "0101", "0102", "1212", "2002"]
+// var target = "0202"
+
+
+const getNeighbor = function (node) {
+    // 0000 - 9999 
+    let strList = node.split("");
+    let neighbor = new Set();
+    for (let i = 0, len = strList.length; i < len; i++) {
+        //8个邻居
+        let tempList = strList.slice();
+        const upS = (+strList[i]) === 0 ? 9 : strList[i] - 1;
+        tempList[i] = upS + "";
+        neighbor.add(tempList.join(""));
+
+        tempList = strList.slice();
+        const downS = (+tempList[i] + 1) % 10;
+        tempList[i] = downS + "";
+        neighbor.add(tempList.join(""));
+    }
+    return Array.from(neighbor);
+}
+
 var openLock = function (deadends, target) {
     //bfs 搜索,检测一个最短距离
     //除了死亡列表内的元素和访问过的元素 别的元素都需要放到队列内，搜索检测
     var visited = Object.create(null);
     //把死亡列表转换为hash，查找更快
     var deadHash = Object.create(null);
-    deadends.forEach((element,index) => {
+    deadends.forEach(element => {
         deadHash[element] = true;
     });
     var start = "0000";
@@ -66,24 +87,7 @@ var openLock = function (deadends, target) {
     queue.enqueue(start);
     visited[start] = true;
 
-    const getNeighbor = function (node) {
-        // 0000 - 9999 
-        let strList = node.split("");
-        let neighbor = new Set();
-        for (let i = 0, len = strList.length; i < len; i++) {
-            //8个邻居
-            let tempList = strList.slice();
-            const upS = (+strList[i]) === 0 ? 0 : strList[i] - 1;
-            tempList[i] = upS + "";
-            neighbor.add(tempList.join(""));
 
-            tempList = strList.slice();
-            const downS = (+tempList[i] + 1) % 10;
-            tempList[i] = downS + "";
-            neighbor.add(tempList.join(""));
-        }
-        return Array.from(neighbor);
-    }
 
     let step = 0;
     while (!queue.isEmpty()) {
@@ -92,6 +96,7 @@ var openLock = function (deadends, target) {
         for (let i = 0; i < size; i++) {
 
             let node = queue.dequeue();
+            console.log(node)
             if (node === target) {
                 return step;
             }
@@ -108,6 +113,57 @@ var openLock = function (deadends, target) {
         }
         step++;
     }
-    return step;
+    return "-1";
 };
-openLock(deadends, target);
+// var r = openLock(["8887","8889","8878","8898","8788","8988","7888","9888"], "8888");
+
+
+
+//双向广度优先搜索
+var openLock2 = function (deadends,target){
+    const dead = new Set(deadends);
+    const visited = new Set();
+    const init = '0000'
+    if (dead.has(init) || dead.has(target)) {
+        return -1;
+    }
+ 
+    if(target === init)return 0;
+
+    let set1 = new Set();
+    set1.add(init);
+
+    let set2 = new Set();
+    set2.add(target)
+ 
+    let steps = 0;
+    while (set1.size && set2.size) {
+        if (set1.size > set2.size) {
+            var temp = set1;
+            set1 = set2;
+            set2 = temp;
+        }
+        let set3 = new Set()
+        for(let cur of set1){
+            const nexts = getNeighbor(cur); 
+            for(let next of nexts){
+                if(set2.has(next)){
+                    return steps + 1;
+                }
+                if(!dead.has(next) && !visited.has(next))
+                {
+                    visited.add(next)
+                    set3.add(next)
+                }
+            }
+
+        }
+ 
+        steps++;
+        set1 = set3;
+    }
+ 
+    return -1;
+}
+openLock2(["0201", "0101", "0102", "1212", "2002"],"0202")
+console.log(r);
