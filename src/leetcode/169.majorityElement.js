@@ -42,7 +42,28 @@ var majorityElement = function(nums) {
 
 };
 // majorityElement([3,2,3])
-majorityElement(
-    [2, 2, 1, 1, 1, 2, 2]
-)
+// majorityElement(
+//     [2, 2, 1, 1, 1, 2, 2]
+// )
 
+
+var majorityElement1 = function (nums){
+    //摩尔投票算法
+    //两个不同元素之间互相抵消，最后剩下的那个元素就是出现的最多的
+    let majority = nums[0];
+    let count = 1;
+    for(let i=1,len=nums.length; i<len; i++){
+            if(nums[i] === majority){
+                count++;
+            }else{
+                count--;
+            }
+            if(count === 0){
+                //当前值被两两抵消后，maj将为下一个值（这时候有可能没有下一个值）
+                majority = nums[i + 1]; 
+            }
+    }
+    return majority;
+}
+majorityElement1([3,2,3,2]);
+// majorityElement1([2, 2, 1, 1, 1, 2, 2]);
