@@ -15,7 +15,6 @@
  *   [10, 13, 14, 17, 24],
  *   [18, 21, 23, 26, 30]
  * ]
- *[1,4,7,11,15,2,5,8,12,19,3,6,9,16,22,10,13,14,17,24,18,21,23,26,30] 
  * 给定 target = 5，返回 true。
  * 
  * 给定 target = 20，返回 false。
@@ -89,8 +88,4 @@ var searchMatrix1 = function(matrix, target) {
 
 // console.log(searchMatrix1(m,20));
 let mm = [[-5]]
-searchMatrix1(mm,-5)
-
-
-
-//TODO 解法三：  把二维数组转化成一维数组 然后进行二分查找
+// searchMatrix1(mm,-5)
