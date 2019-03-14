@@ -50,4 +50,28 @@ var dailyTemperatures = function (T) {
     return r;
 };
 
-dailyTemperatures([73, 74, 75, 71, 69, 72, 76, 73])
+
+
+var dailyTemperatures1 = function(T){
+    /**
+     * O（n * n）
+     */
+    let r = [];
+    for(let i=0,len = T.length; i< len; i++){
+        r[i] = 0;
+        let val = T[i]
+        let j = i + 1;
+        while(j < len){
+            if(T[j] > val){
+                let v = j - i;
+                r[r.length - 1] = v;
+                break;
+            }else{
+                j++
+            }
+        }
+    }
+    return r;
+}
+
+dailyTemperatures1([73, 74, 75, 71, 69, 72, 76, 73])
