@@ -7,7 +7,7 @@ function getLeaves(nodes){
        let len = node.children.length;
        for(let i=0; i<len; i++){
            let childrenNode = node.children[i]
-           if(childrenNode && childrenNode.children.length > 0){
+           if(childrenNode.children && childrenNode.children.length > 0){
                iteration(childrenNode,r)
            }else{
                r.push(childrenNode)
