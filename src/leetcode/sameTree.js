@@ -81,4 +81,36 @@ var sameTree = function (t1,t2){
         return sameTree(t1.leftNode, t2.leftNode) && sameTree(t1.rightNode, t2.rightNode)
         
 }
-console.log(sameTree(t1,t2))
+
+
+var sameTree1 = function (t1,t2){
+
+    //1. 先遍历完2颗树
+    const traverse = (tree)=>{
+        const r = [];
+        const iteration = (node)=>{
+            if(!node)return;
+            r.push(node.val);
+            iteration(node.leftNode);
+            iteration(node.rightNode);
+        }
+        iteration(tree);
+        return r;
+    } 
+    let t1List = traverse(t1);
+    let t2List = traverse(t2);
+    //2.然后对比数组
+    if(t1List.length != t2List.length){
+        return false;
+    }
+
+    for(let i=0, len = t1List.length; i<len; i++){
+        let t1Val = t1List[i];
+        let t2Val = t2List[i];
+        if(t1Val !== t2Val)return false;
+    }
+
+    return true;
+
+}
+console.log(sameTree1(t1,t2))
