@@ -21,8 +21,6 @@ Node.prototype.add = function(node){
 }
 
 /**
- * vscode中可以运行
- * 但是在 leetcode 中提示 超出最大栈
  * @param {*} node 
  */
 var cloneGraph = function(headNode) {
@@ -74,3 +72,31 @@ n4.add(n3)
 
 const newGraph = cloneGraph(n1)
 console.log(newGraph)
+
+
+
+var cloneGraph1 = function (node){
+    // 更加简洁的递归处理
+    let map = new Map();
+    const DFS = (node)=>{
+        if(!node || !node.val)return;
+        // 创建一个新的 Node
+        let cloneNode = new Node(node.val);
+        map.set(node.val,cloneNode)
+        for (let i = 0; i < node.neighbors.length; i++) {
+            let neighborNode = node.neighbors[i]
+            //如果 map 内有的话，那么直接添加到 neighbors 内
+            if (map.has(neighborNode.val)) {
+                cloneNode.neighbors.push(map.get(neighborNode.val));
+            } else {
+                // 如果没有的话， 递归处理 =》 
+                cloneNode.neighbors.push(DFS(neighborNode));
+            }
+        }
+        return node;
+    }
+    DFS(node)
+    return map.get("1")
+
+}
+cloneGraph1(n1)
