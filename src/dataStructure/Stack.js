@@ -52,6 +52,10 @@ class Stack{
         return this.count === 0;
     }
 
+    clear(){
+        this.count = 0;
+        this.list = [];
+    }
   
 }
 module.exports = Stack;
