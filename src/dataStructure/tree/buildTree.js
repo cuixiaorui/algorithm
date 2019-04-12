@@ -36,6 +36,11 @@ function TreeNode(val) {
     this.left = this.right = null;
 }
 
+/**
+ * 基于中序和后序构建树 
+ * @param {*} inorder 
+ * @param {*} postorder 
+ */
 function buildTree(inorder,postorder){
     if(inorder.length === 0)return null;
     if(inorder.length === 1)return new TreeNode(inorder[0]);
@@ -45,8 +50,23 @@ function buildTree(inorder,postorder){
     root.right = buildTree(inorder.slice(leftTreeNodeSum+1),postorder.slice(leftTreeNodeSum))
     return root;
 }
-var r = buildTree1([1,2,3,4],[4,3,2,1]);
 
-console.log(r);
+// console.log(r);
 // var r = buildTree([2,1],[1,2]);
 // var r = buildTree([1,2],[2,1]);
+
+/**
+ * 基于前序和中序构建树
+ */
+function buildTree1(preorder, inorder){
+    if(preorder.length === 0)return null;
+    if(preorder.length === 1)return new TreeNode(preorder[0]);
+    var root = new TreeNode(preorder[0]);
+    var leftTreeNodeSum = inorder.indexOf(root.val);
+    root.left = buildTree1(preorder.slice(1,leftTreeNodeSum + 1),inorder.slice(0,leftTreeNodeSum));
+    root.right = buildTree1(preorder.slice(leftTreeNodeSum + 1),inorder.slice(leftTreeNodeSum + 1));
+    return root;
+}
+
+var r = buildTree1([3,9,20,15,7],[9,3,15,20,7]);
+console.log(r);
