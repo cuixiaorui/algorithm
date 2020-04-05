@@ -4,7 +4,7 @@
   },
   "devDependencies": {
     "intelli-espower-loader": "^1.0.1",
-    "minimist": "^1.2.0",
+    "minimist": "^1.2.3",
     "mocha": "^5.2.0",
     "power-assert": "^1.6.1"
   },
