@@ -11,24 +11,25 @@
 
 // 3 -> 2 -> 0 -> -4
 // -4 -> 2
+const isVisit = Symbol("isVisi");
 
 // 输入：head = [3,2,0,-4], pos = 1
 // 输出：true
 // 解释：链表中有一个环，其尾部连接到第二个节点。
-const isVisit = Symbol("visit");
-
 function hasCycle(node) {
-  // 如何验证呢？
-  // 给处理过的节点做个标记
+  // 小步骤的开发思想
   let temp = node;
   while (temp) {
-    temp = temp.next;
     if (temp.val === isVisit) {
       return true;
     }
+
     temp.val = isVisit;
+
+    temp = temp.next;
   }
-  return false;
+
+  return false
 }
 
 module.exports = {

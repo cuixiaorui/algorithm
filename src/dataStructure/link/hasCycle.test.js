@@ -14,6 +14,6 @@ describe("hasCycle", () => {
     const result = hasCycle(head);
 
     // then
-    expect(result).toBe(result);
+    expect(result).toBe(true);
   });
 });
